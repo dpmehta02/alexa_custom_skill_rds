@@ -1,0 +1,28 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "en-US": {
+          "summary": "Chain multiple actions together with one phrase.",
+          "examplePhrases": [
+            "Alexa open daisy chains"
+          ],
+          "name": "daisy_chains",
+          "description": "Daisy Chains enables users to 'chain' multiple actions from various sources and then trigger them from Alexa with one phrase."
+        }
+      },
+      "isAvailableWorldwide": true,
+      "testingInstructions": "Sample Testing Instructions. We should update this.",
+      "category": "SMART_HOME",
+      "distributionCountries": []
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "sourceDir": "lambda/custom"
+        }
+      }
+    },
+    "manifestVersion": "1.0"
+  }
+}

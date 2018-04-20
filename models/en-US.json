@@ -2,37 +2,65 @@
   "interactionModel": {
     "languageModel": {
       "invocationName": "daisy chains",
-      "types": [
-
-      ],
+      "types": [],
       "intents": [
         {
           "name": "AMAZON.CancelIntent",
-          "samples": [
-
-          ]
+          "samples": []
         },
         {
           "name": "AMAZON.HelpIntent",
-          "samples": [
-
-          ]
+          "samples": []
         },
         {
           "name": "AMAZON.StopIntent",
-          "samples": [
-
-          ]
+          "samples": []
         },
         {
           "name": "TriggerChainIntent",
           "slots": [
-
+            {
+              "name": "ChainName",
+              "type": "AMAZON.SearchQuery"
+            }
           ],
           "samples": [
-            "start",
-            "trigger",
-            "play"
+            "start {ChainName}",
+            "trigger {ChainName}",
+            "play {ChainName}",
+            "start {ChainName} chain",
+            "trigger {ChainName} chain",
+            "play {ChainName} chain",
+            "start my {ChainName}",
+            "trigger my {ChainName}",
+            "play my {ChainName}",
+            "start my {ChainName} chain",
+            "trigger my {ChainName} chain",
+            "play my {ChainName} chain",
+            "start the {ChainName}",
+            "trigger the {ChainName}",
+            "play the {ChainName}",
+            "start the {ChainName} chain",
+            "trigger the {ChainName} chain",
+            "play the {ChainName} chain",
+            "to start {ChainName}",
+            "to trigger {ChainName}",
+            "to play {ChainName}",
+            "to start {ChainName} chain",
+            "to trigger {ChainName} chain",
+            "to play {ChainName} chain",
+            "to start my {ChainName}",
+            "to trigger my {ChainName}",
+            "to play my {ChainName}",
+            "to start my {ChainName} chain",
+            "to trigger my {ChainName} chain",
+            "to play my {ChainName} chain",
+            "to start the {ChainName}",
+            "to trigger the {ChainName}",
+            "to play the {ChainName}",
+            "to start the {ChainName} chain",
+            "to trigger the {ChainName} chain",
+            "to play the {ChainName} chain"
           ]
         }
       ]

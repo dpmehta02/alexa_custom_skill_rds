@@ -3,13 +3,28 @@
 
 const Alexa = require('ask-sdk-core');
 
+/* * * Databse helpers * * */
+function createDatabaseConnection() {
+  // only invoke in functions that require it.
+  // var pg = require('pg');
+  // var conn = "pg://user:password@host:5432/bd_name";
+  // var client = new pg.Client(conn);
+  // client.connect();
+}
+
+function getUserChains(userID) {
+  return userID;
+}
+
+/* * * Handlers * * */
 const LaunchRequestHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
   },
   handle(handlerInput) {
-    // Query DB by userID for chains.
-    const userChains = [];
+    createDatabaseConnection();
+    // const userID = handlerInput. ...
+    const userChains = getUserChains(handlerInput);
 
     let cardText;
     let speechText;
@@ -17,7 +32,7 @@ const LaunchRequestHandler = {
       // TODO: Tell user to check alexa app for link to create chains
       // and (return card w/ link to companion app).
       speechText = '';
-      cardText = 'http://www.companionapp.io';
+      cardText = 'http://www.companionapp.io'; // TODO: update with real domain.
     } else { // If does, ask which chain to trigger. Your current chains are ..., ..., .
       // TODO: Return custom audio in place of this and move this string to cardText
       speechText = 'Welcome to Daisy Chains! Which chain would you like to trigger? Your choices are ... .';
@@ -32,20 +47,30 @@ const LaunchRequestHandler = {
   },
 };
 
-// Modify handler to accept utterance
 const TriggerChainIntentHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
       && handlerInput.requestEnvelope.request.intent.name === 'TriggerChainIntent';
   },
   handle(handlerInput) {
-    const speechText = 'Hello World!';
-    // If no matching chain, list current chains and await response -- GET API
-    // Else trigger chain based on utterance (and say 'success!') -- hit API
+    const chainName = handlerInput.requestEnvelope.request.intent.slots.ChainName.value;
+
+    // Query DB, get chain
+    const chainQueryResult = chainName;
+    let speechText;
+    if (chainQueryResult) {
+      // Trigger events
+      // Say 'success'
+      speechText = 'Triggered <CHAIN_NAME> chain with the following events: <EVENTS>';
+      // exit app?
+    } else {
+      speechText = 'Invalid chain name. Your available chains are <LIST_ALL_CHAINS>';
+      // await response
+    }
 
     return handlerInput.responseBuilder
       .speak(speechText)
-      .withSimpleCard('Hello World', speechText)
+      .withSimpleCard('Daisy Chains', 'Triggered <CHAIN_NAME> chain with the following events: <EVENTS>')
       .getResponse();
   },
 };
@@ -56,12 +81,12 @@ const HelpIntentHandler = {
       && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
   },
   handle(handlerInput) {
-    const speechText = 'You can say hello to me!';
+    const speechText = 'Chain multiple actions together with a custom phrase. Visit <LINK> to set up your first chain.';
 
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
-      .withSimpleCard('Hello World', speechText)
+      .withSimpleCard('Daisy Chains', speechText)
       .getResponse();
   },
 };
@@ -77,7 +102,6 @@ const CancelAndStopIntentHandler = {
 
     return handlerInput.responseBuilder
       .speak(speechText)
-      .withSimpleCard('Hello World', speechText)
       .getResponse();
   },
 };

@@ -5,7 +5,9 @@
         "en-US": {
           "summary": "Chain multiple actions together with a custom phrase.",
           "examplePhrases": [
-            "Alexa open daisy chains"
+            "open daisy chains",
+            "play daisy chains",
+            "daisy chains"
           ],
           "name": "daisy_chains",
           "description": "Daisy Chains enables users to easily 'chain' multiple actions from various platforms and then trigger them from Alexa with a custom phrase."

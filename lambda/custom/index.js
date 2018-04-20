@@ -9,11 +9,13 @@ const LaunchRequestHandler = {
   },
   handle(handlerInput) {
     // Query DB by userID for chains.
+    const userChains = false;
 
-    const cardText;
-    const speechText;
-    if (true) { // If no userID or empty chains
-      // TODO: Tell user to check alexa app for link to create chains (return card w/ link to companion app).
+    let cardText;
+    let speechText;
+    if (userChains.size === 0) {
+      // TODO: Tell user to check alexa app for link to create chains
+      // (return card w/ link to companion app).
       speechText = '';
       cardText = 'http://www.companionapp.io';
     } else { // If does, ask which chain to trigger. Your current chains are ..., ..., .
@@ -113,7 +115,7 @@ exports.handler = skillBuilder
     TriggerChainIntentHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,
-    SessionEndedRequestHandler
+    SessionEndedRequestHandler,
   )
   .addErrorHandlers(ErrorHandler)
   .lambda();

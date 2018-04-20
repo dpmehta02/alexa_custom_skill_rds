@@ -9,13 +9,13 @@ const LaunchRequestHandler = {
   },
   handle(handlerInput) {
     // Query DB by userID for chains.
-    const userChains = false;
+    const userChains = [];
 
     let cardText;
     let speechText;
     if (userChains.size === 0) {
       // TODO: Tell user to check alexa app for link to create chains
-      // (return card w/ link to companion app).
+      // and (return card w/ link to companion app).
       speechText = '';
       cardText = 'http://www.companionapp.io';
     } else { // If does, ask which chain to trigger. Your current chains are ..., ..., .

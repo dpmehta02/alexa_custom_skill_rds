@@ -8,7 +8,7 @@
             "Alexa open daisy chains"
           ],
           "name": "daisy_chains",
-          "description": "Daisy Chains enables users to 'chain' multiple actions from various sources and then trigger them from Alexa with one phrase."
+          "description": "Daisy Chains enables users to 'chain' multiple actions from various platforms and then trigger them from Alexa with a custom phrase."
         }
       },
       "isAvailableWorldwide": true,

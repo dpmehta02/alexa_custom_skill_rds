@@ -2,19 +2,7 @@
 /* eslint-disable  no-console */
 
 const Alexa = require('ask-sdk-core');
-
-/* * * Databse helpers * * */
-function createDatabaseConnection() {
-  // only invoke in functions that require it.
-  // var pg = require('pg');
-  // var conn = "pg://user:password@host:5432/bd_name";
-  // var client = new pg.Client(conn);
-  // client.connect();
-}
-
-function getUserChains(userID) {
-  return userID;
-}
+const db = require('./db');
 
 /* * * Handlers * * */
 const LaunchRequestHandler = {
@@ -22,22 +10,32 @@ const LaunchRequestHandler = {
     return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
   },
   handle(handlerInput) {
-    createDatabaseConnection();
     // const userID = handlerInput. ...
-    const userChains = getUserChains(handlerInput);
-
+    console.log('---------------------handlerinput-------------');
+    console.log(handlerInput);
     let cardText;
     let speechText;
-    if (userChains.size === 0) {
-      // TODO: Tell user to check alexa app for link to create chains
-      // and (return card w/ link to companion app).
-      speechText = '';
-      cardText = 'http://www.companionapp.io'; // TODO: update with real domain.
-    } else { // If does, ask which chain to trigger. Your current chains are ..., ..., .
-      // TODO: Return custom audio in place of this and move this string to cardText
-      speechText = 'Welcome to Daisy Chains! Which chain would you like to trigger? Your choices are ... .';
-      cardText = speechText;
-    }
+    db.query('SELECT $1::text as message', ['Hello world!'], (err, res) => {
+      if (err) {
+        console.log(err.stack);
+        speechText = 'Sorry, there was an error. Please try again.';
+        cardText = 'Sorry, there was an error. Please try again.';
+      } else {
+        console.log(err ? err.stack : res.rows[0].message); // Hello World!
+        const userChains = res.rows;
+        if (userChains.size === 0) {
+          // TODO: Tell user to check alexa app for link to create chains
+          // and (return card w/ link to companion app).
+          speechText = '';
+          cardText = 'http://www.companionapp.io'; // TODO: update with real domain.
+        } else { // If does, ask which chain to trigger. Your current chains are ..., ..., .
+          // TODO: Return custom audio in place of this and move this string to cardText
+          speechText = 'Welcome to Daisy Chains! Which chain would you like to trigger? Your choices are ... .';
+          cardText = speechText;
+        }
+      }
+      db.end();
+    });
 
     return handlerInput.responseBuilder
       .speak(speechText)

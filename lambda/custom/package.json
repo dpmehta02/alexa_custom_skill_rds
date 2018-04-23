@@ -10,7 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "ask-sdk-core": "^2.0.0",
-    "ask-sdk-model": "^1.0.0"
+    "ask-sdk-model": "^1.0.0",
+    "pg": "^7.4.1"
   },
   "devDependencies": {
     "eslint-config-airbnb-base": "^12.1.0",

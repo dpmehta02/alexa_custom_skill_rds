@@ -12,7 +12,7 @@ const client = new Client({
   //   ssl?: any, // passed directly to node.TLSSocket
   //   types?: any, // custom type parsers
   //   number of milliseconds before a query will time out default is no timeout
-  statement_timeout: 0,
+  statement_timeout: 0, // None
 });
 
 module.exports = {

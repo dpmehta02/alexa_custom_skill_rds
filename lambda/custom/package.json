@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo ADD TESTS!\n"
+    "test": "cd ../../ && ./simulate.sh"
   },
   "author": "",
   "license": "ISC",

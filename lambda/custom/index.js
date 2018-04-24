@@ -10,31 +10,35 @@ const LaunchRequestHandler = {
     return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
   },
   handle(handlerInput) {
-    // const userID = handlerInput. ...
-    console.log('---------------------handlerinput-------------');
-    console.log(handlerInput);
+    console.log('in launch request handler');
+    const { userId } = handlerInput.requestEnvelope.session.user;
+    console.log(`User id: ${userId} ------`);
     let cardText;
     let speechText;
-    db.query('SELECT $1::text as message', ['Hello world!'], (err, res) => {
+    // where id - userid
+    db.query(`SELECT * from users where id = ${userId};`, (err, res) => {
       if (err) {
-        console.log(err.stack);
         speechText = 'Sorry, there was an error. Please try again.';
         cardText = 'Sorry, there was an error. Please try again.';
+        console.log(err.stack);
       } else {
-        console.log(err ? err.stack : res.rows[0].message); // Hello World!
+        console.log('above res.fields');
+        console.log(res.fields);
+        console.log('above res.rows');
+        console.log(res.rows);
         const userChains = res.rows;
         if (userChains.size === 0) {
           // TODO: Tell user to check alexa app for link to create chains
           // and (return card w/ link to companion app).
-          speechText = '';
+          speechText = 'You don\'t have any chains. Create some now in the link sent to your Alexa app. GET HYPE!';
           cardText = 'http://www.companionapp.io'; // TODO: update with real domain.
-        } else { // If does, ask which chain to trigger. Your current chains are ..., ..., .
+        } else {
           // TODO: Return custom audio in place of this and move this string to cardText
           speechText = 'Welcome to Daisy Chains! Which chain would you like to trigger? Your choices are ... .';
           cardText = speechText;
         }
       }
-      db.end();
+      db.closeConn(); // Is this necessary? Also, we should move this higher.
     });
 
     return handlerInput.responseBuilder
@@ -51,7 +55,9 @@ const TriggerChainIntentHandler = {
       && handlerInput.requestEnvelope.request.intent.name === 'TriggerChainIntent';
   },
   handle(handlerInput) {
+    console.log('in trigger chain intent handler');
     const chainName = handlerInput.requestEnvelope.request.intent.slots.ChainName.value;
+    console.log(`chain Name: ${chainName} in trigger chain intent handler`);
 
     // Query DB, get chain
     const chainQueryResult = chainName;
@@ -79,6 +85,7 @@ const HelpIntentHandler = {
       && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
   },
   handle(handlerInput) {
+    console.log('in help intent handler');
     const speechText = 'Chain multiple actions together with a custom phrase. Visit <LINK> to set up your first chain.';
 
     return handlerInput.responseBuilder
@@ -120,6 +127,7 @@ const ErrorHandler = {
     return true;
   },
   handle(handlerInput, error) {
+    console.log('in error handler');
     console.log(`Error handled: ${error.message}`);
 
     return handlerInput.responseBuilder

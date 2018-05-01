@@ -1,9 +1,4 @@
--- Thile file belongs in the companion App repo
-
--- TEMPORARY!
-DROP TABLE events;
-DROP TABLE chains;
-DROP TABLE users;
+-- This file belongs in the companion App repo. It's just here temporarily.
 
 CREATE TABLE IF NOT EXISTS users (
   id SERIAL NOT NULL PRIMARY KEY,
@@ -24,11 +19,7 @@ CREATE TABLE IF NOT EXISTS events (
   name VARCHAR(300)
 );
 
-DELETE FROM users;
-DELETE FROM chains;
-DELETE FROM events;
-INSERT INTO users (amazon_id, email) VALUES ('a_sample_amazon_id', 'dpmehta02@gmail.com');
-INSERT INTO chains (user_id, name) VALUES (1, 'My Morning Chain');
-INSERT INTO events (chain_id, name) VALUES (1, 'Turn on the lights');
-
-Select * from users inner join chains on (chains.user_id = users.id) inner join events on (chains.id = events.chain_id);
+-- OPTIONAL - Add some seed data
+-- INSERT INTO users (amazon_id, email) VALUES ('a_sample_amazon_id', 'dpmehta02@gmail.com');
+-- INSERT INTO chains (user_id, name) VALUES (1, 'My Morning Chain');
+-- INSERT INTO events (chain_id, name) VALUES (1, 'Turn on the lights');

@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS chains (
   id SERIAL NOT NULL PRIMARY KEY,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  name VARCHAR(300) -- SHOULD BE UNIQUE TO USER, only lower case
+  name VARCHAR(300) -- SHOULD BE UNIQUE TO USER and only allow lower case
   -- url_name VARCHAR check(translate(url_name, 'abcdefghijklmnopqrstuvwxyz', '') = '') NOT NULL,
 );
 

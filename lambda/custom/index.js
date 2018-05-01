@@ -41,10 +41,10 @@ const LaunchRequestHandler = {
         // TODO: Return custom audio in place of this and move this string to cardText
         speechText = 'Welcome to Daisy Chains! Which chain would you like to trigger? Your choices are ... .';
         cardText = speechText;
-        // await reponse?
+        // TODO: Await reponse
       }
     });
-    db.closeConn(); // Is this necessary? Also, we should move this higher.
+    db.closeConn(); // TODO: Is this necessary?
 
     return handlerInput.responseBuilder
       .speak(speechText)
@@ -75,13 +75,12 @@ const TriggerChainIntentHandler = {
       } else if (res.size === 0) {
         speechText = 'We couldn\'t find that chain. Your available chains are <LIST_ALL_CHAINS>';
         cardText = 'placeholder';
-        // await response
+        // TODO: await response
       // Trigger the chain and exit the app
       } else {
-        // Trigger events
         speechText = 'Triggered <CHAIN_NAME> chain. See the Alexa App for a list of the events triggered.';
         cardText = 'placeholder';
-        // exit app
+        // TODO: Exit the app
       }
     });
     db.closeConn();
@@ -159,23 +158,6 @@ exports.handler = skillBuilder
     SessionEndedRequestHandler,
   )
   .addErrorHandlers(ErrorHandler)
+  // TODO: Add an API client
   // .withApiClient()
   .lambda();
-
-// Service clients can be used in any request handler, exception handler, and
-// request and response interceptor. The ServiceClientFactory contained inside the
-// HandlerInput allows you to retrieve client instances for every supported Alexa
-// service. The ServiceClientFactory are only available when you configure the
-// skill instance with an ApiClient.
-//
-// The following example shows the handle function for a request handler that
-// creates an instance of the device address service client. Creating a service
-// client instance is as simple as calling the appropriate factory function.
-//
-// const handle = async function(handlerInput) {
-//       const { requestEnvelope, serviceClientFactory } = handlerInput;
-//       const { deviceId } = requestEnvelope.context.System.device;
-//       const deviceAddressServiceClient = serviceClientFactory.getDeviceAddressServiceClient();
-//       const address = await deviceAddressServiceClient.getFullAddress(deviceId);
-//       // other handler logic goes here
-// }
